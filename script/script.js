@@ -43,6 +43,8 @@ const getHumanChoice = () => {
 };
 
 const playGame = (rounds) => {
+  computerScore = 0;
+  humanScore = 0;
   for (let i = 0; i < rounds; i++) {
     playRound(getComputerChoice(), getHumanChoice());
   }
@@ -58,5 +60,9 @@ const playGame = (rounds) => {
   }
 };
 
-let rounds = parseInt(prompt("How many rounds would you like to play?"));
+let rounds;
+do {
+  rounds = parseInt(prompt("How many rounds would you like to play?"));
+} while (isNaN(rounds) || rounds <= 0);
+
 playGame(rounds);
