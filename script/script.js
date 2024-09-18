@@ -4,48 +4,54 @@ let computerScore = 0;
 const playRound = (computerChoice, humanChoice) => {
   console.log("Computer chose: " + computerChoice);
   console.log("Human chose: " + humanChoice);
+
   if (computerChoice === humanChoice) {
     console.log("It's a tie!");
-  } else if (computerChoice === "rock" && humanChoice === "scissors") {
+  } else if (
+    (computerChoice === "rock" && humanChoice === "scissors") ||
+    (computerChoice === "paper" && humanChoice === "rock") ||
+    (computerChoice === "scissors" && humanChoice === "paper")
+  ) {
     console.log("Computer wins!");
     computerScore++;
-  } else if (computerChoice === "rock" && humanChoice === "paper") {
-    console.log("Human wins!");
-    humanScore++;
-  } else if (computerChoice === "paper" && humanChoice === "rock") {
-    console.log("Computer wins!");
-    computerScore++;
-  } else if (computerChoice === "paper" && humanChoice === "scissors") {
-    console.log("Human wins!");
-    humanScore++;
-  } else if (computerChoice === "scissors" && humanChoice === "paper") {
-    console.log("Computer wins!");
-    computerScore++;
-  } else if (computerChoice === "scissors" && humanChoice === "rock") {
-    console.log("Human wins!");
-    humanScore++;
   } else {
-    console.log("Something went wrong...")
+    console.log("Human wins!");
+    humanScore++;
   }
 }
 
 const getComputerChoice = () => {
-  const number = Math.random();
-  if (number < 0.34) {
-    return 'rock';
-  } else if (number <= 0.67) {
-    return 'paper';
-  } else {
-    return 'scissors';
-  }
+  const choices = ['rock', 'paper', 'scissors'];
+  const randomIndex = Math.floor(Math.random() * 3);
+  return choices[randomIndex];
 }
 
 const getHumanChoice = () => {
-  const choice = prompt("Rock, paper, scissors?").toLowerCase();
+  let choice = prompt("Rock, paper, scissors?").toLowerCase();
+  while (!["rock", "paper", "scissors"].includes(choice)) {
+    choice = prompt("Invalid choice. Please enter rock, paper, or scissors:").toLowerCase();
+  }
   return choice;
 }
 
-for (let i = 0; i < 5; i++) {
-  playRound(getComputerChoice(), getHumanChoice());
-  console.log(`Score: Human: ${humanScore} Computer: ${computerScore}`);
+const playGame = (rounds) => {
+  for (let i = 0; i < rounds; i++) {
+    playRound(getComputerChoice(), getHumanChoice());
+    console.log(`Score: Human: ${humanScore}, Computer: ${computerScore}`);
+  }
+
+  console.log("Final Score:");
+  console.log(`Human: ${humanScore} - Computer: ${computerScore}`);
+
+  if (humanScore > computerScore) {
+    console.log("You are the overall winner!");
+  } else if (humanScore < computerScore) {
+    console.log("Computer is the overall winner!");
+  } else {
+    console.log("The game is a tie!");
+  }
 }
+
+// Ask the user for the number of rounds
+let rounds = parseInt(prompt("How many rounds would you like to play?"));
+playGame(rounds);
