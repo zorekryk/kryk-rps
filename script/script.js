@@ -49,14 +49,12 @@ toggleRoundButtons = (state) => {
   roundBtn5.disabled = state;
 };
 
-// Функція для обнулення вибору комп'ютера
 const resetComputerChoice = () => {
   compRock.style.opacity = 0.3;
   compPaper.style.opacity = 0.3;
   compScissors.style.opacity = 0.3;
 };
 
-// Функція для відображення вибору комп'ютера
 const showComputerChoice = () => {
   if (computerChoice === "rock") {
     compRock.style.opacity = 1;
@@ -67,14 +65,12 @@ const showComputerChoice = () => {
   }
 };
 
-// Функція для отримання вибору комп'ютера
 const getComputerChoice = () => {
   const choices = ["rock", "paper", "scissors"];
   const randomIndex = Math.floor(Math.random() * 3);
   return choices[randomIndex];
 };
 
-// Функція для визначення переможця одного раунду
 const determineWinner = () => {
   if (humanChoice === computerChoice) {
     resultMessage.textContent = "It's a tie!";
@@ -90,11 +86,9 @@ const determineWinner = () => {
     resultMessage.textContent = "Computer won this round!";
   }
 
-  // Оновлення рахунку на екрані
   score.textContent = `${humanScore} : ${computerScore}`;
 };
 
-// Функція для перевірки завершення раундів
 const checkGameOver = () => {
   if (currentRound >= totalRounds) {
     if (humanScore > computerScore) {
@@ -110,7 +104,6 @@ const checkGameOver = () => {
   }
 };
 
-// Функція для початку гри та обробки кожного раунду
 const playRound = (playerChoice) => {
   toggleRoundButtons(true);
   humanChoice = playerChoice;
@@ -122,7 +115,6 @@ const playRound = (playerChoice) => {
   checkGameOver();
 };
 
-// Функція для перезапуску гри
 const resetGame = () => {
   resetComputerChoice();
   humanScore = 0;
@@ -134,7 +126,6 @@ const resetGame = () => {
   toggleRoundButtons(false);
 };
 
-// Обробники подій для вибору користувача
 rock.addEventListener("click", function () {
   playRound("rock");
 });
@@ -147,6 +138,5 @@ scissors.addEventListener("click", function () {
   playRound("scissors");
 });
 
-// Оновлення рахунку на початку гри
 score.textContent = `${humanScore} : ${computerScore}`;
 resultMessage.textContent = "The game has started!";
